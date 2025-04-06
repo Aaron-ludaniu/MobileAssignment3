@@ -1,10 +1,12 @@
-package com.example.mobileappassignment3;
+package com.example.mobileappassignment3.view.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mobileappassignment3.R;
 
 public class MovieViewHolder extends RecyclerView.ViewHolder {
     TextView textTitle, textYear;

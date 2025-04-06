@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.mobileappassignment3.R;
-import com.example.mobileappassignment3.databinding.ActivityMovieDetailBinding;
+import com.example.mobileappassignment3.databinding.ActivitySearchDetailBinding;
 
 import org.json.JSONObject;
 
@@ -16,15 +16,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class SearchDetailsActivity extends AppCompatActivity {
 
-    private ActivityMovieDetailBinding binding;
+    private ActivitySearchDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMovieDetailBinding.inflate(getLayoutInflater());
+        binding = ActivitySearchDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.buttonHome.setOnClickListener(new View.OnClickListener() {

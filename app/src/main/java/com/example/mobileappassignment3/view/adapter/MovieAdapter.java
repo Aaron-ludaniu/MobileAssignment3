@@ -1,4 +1,4 @@
-package com.example.mobileappassignment3;
+package com.example.mobileappassignment3.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mobileappassignment3.R;
 import com.example.mobileappassignment3.model.MovieModel;
-import com.example.mobileappassignment3.view.MovieDetailsActivity;
+import com.example.mobileappassignment3.view.SearchDetailsActivity;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                Intent intent = new Intent(context, SearchDetailsActivity.class);
                 intent.putExtra("imdbID", movie.getImdbID());
                 context.startActivity(intent);
             }

@@ -9,24 +9,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.mobileappassignment3.MovieAdapter;
+import com.example.mobileappassignment3.databinding.ActivitySearchBinding;
+import com.example.mobileappassignment3.view.adapter.MovieAdapter;
 import com.example.mobileappassignment3.R;
-import com.example.mobileappassignment3.databinding.ActivityMainBinding;
 import com.example.mobileappassignment3.model.MovieModel;
 import com.example.mobileappassignment3.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     private MovieAdapter movieAdapter;
     private ArrayList<MovieModel> movieList = new ArrayList<>();
-    private ActivityMainBinding binding;
+    private ActivitySearchBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(this));
