@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.mobileappassignment3.R;
 import com.example.mobileappassignment3.model.MovieModel;
 import com.example.mobileappassignment3.view.SearchDetailsActivity;
-
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder>{
