@@ -26,6 +26,32 @@
         android:id="@+id/recyclerViewMovies"
         android:scrollbars="vertical"
         android:layout_marginTop="16dp"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="12dp">
+
+        <Button
+            android:id="@+id/buttonStayOnSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Search"
+            android:backgroundTint="#00BCD4"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/buttonGoToFavorites"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Favorites"
+            android:layout_marginEnd="8dp" />
+    </LinearLayout>
 </LinearLayout>

@@ -16,12 +16,19 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder>{
 
+    public interface OnMovieClickListener {
+        void onMovieClick(MovieModel movie);
+    }
+
     private Context context;
     private List<MovieModel> movieList;
+    private OnMovieClickListener listener;
 
-    public MovieAdapter(Context context, List<MovieModel> movieList) {
+
+    public MovieAdapter(Context context, List<MovieModel> movieList, OnMovieClickListener listener) {
         this.context = context;
         this.movieList = movieList;
+        this.listener = listener;
     }
 
     public void updateData(List<MovieModel> movies) {
@@ -43,13 +50,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder>{
         holder.textYear.setText("Year: " + movie.getYear());
         Glide.with(context).load(movie.getPoster()).into(holder.imagePoster);
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SearchDetailsActivity.class);
-                intent.putExtra("imdbID", movie.getImdbID());
-                context.startActivity(intent);
+                if (listener != null) listener.onMovieClick(movie);
             }
         });
     }

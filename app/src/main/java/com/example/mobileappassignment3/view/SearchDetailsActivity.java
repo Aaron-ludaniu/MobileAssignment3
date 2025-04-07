@@ -1,13 +1,18 @@
 package com.example.mobileappassignment3.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.mobileappassignment3.R;
 import com.example.mobileappassignment3.databinding.ActivitySearchDetailBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONObject;
 
@@ -15,10 +20,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchDetailsActivity extends AppCompatActivity {
 
     private ActivitySearchDetailBinding binding;
+    private String currentPosterUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +35,56 @@ public class SearchDetailsActivity extends AppCompatActivity {
         binding = ActivitySearchDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.buttonHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         // Get movie imdbID from movie List
         String imdbID = getIntent().getStringExtra("imdbID");
 
         if(imdbID != null){
             loadMovieDetails(imdbID);
         }
+
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        binding.buttonAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToFavorites(imdbID);
+            }
+        });
+    }
+
+    private void addToFavorites(String imdbID) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+
+        String uid = user.getUid();
+
+        Map<String, Object> movieData = new HashMap<>();
+        movieData.put("title", binding.textTitle.getText().toString());
+        movieData.put("year", binding.textYear.getText().toString().replace("Year: ", ""));
+        movieData.put("posterUrl", currentPosterUrl);
+        movieData.put("description", binding.textPlot.getText().toString().replace("Plot: ", ""));
+
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(uid)
+                .collection("favorites")
+                .document(imdbID)
+                .set(movieData)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to add: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
 
     private void loadMovieDetails(String imdbID){
@@ -66,7 +111,8 @@ public class SearchDetailsActivity extends AppCompatActivity {
             jsonObj = new JSONObject(response.toString());
 
             // load movie details
-            Glide.with(this).load(jsonObj.getString("Poster")).into(binding.imagePoster);
+            currentPosterUrl = jsonObj.getString("Poster");
+            Glide.with(this).load(currentPosterUrl).into(binding.imagePoster);
 
             binding.textTitle.setText(jsonObj.getString("Title"));
             binding.textYear.setText("Year: "+ jsonObj.getString("Year"));

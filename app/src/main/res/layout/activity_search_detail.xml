@@ -6,7 +6,7 @@
     android:background="#FFE0E0E0"
     android:fitsSystemWindows="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -94,11 +94,31 @@
             android:layout_height="wrap_content"
             android:paddingTop="12dp" />
 
-        <Button
-            android:id="@+id/buttonHome"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="24dp"
-            android:text="Home" />
+            android:layout_marginBottom="16dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/buttonAddToFav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add To Fav"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

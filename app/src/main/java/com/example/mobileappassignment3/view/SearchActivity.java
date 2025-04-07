@@ -1,5 +1,6 @@
 package com.example.mobileappassignment3.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 
@@ -31,7 +32,13 @@ public class SearchActivity extends AppCompatActivity {
 
         binding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(this));
 
-        movieAdapter = new MovieAdapter(this, movieList);
+        movieAdapter = new MovieAdapter(this, movieList, movie -> {
+            // click to gonna movie detail page
+            Intent intent = new Intent(this, SearchDetailsActivity.class);
+            intent.putExtra("imdbID", movie.getImdbID());
+            startActivity(intent);
+        });
+
         binding.recyclerViewMovies.setAdapter(movieAdapter);
 
         // grant nerwork permisson
@@ -52,5 +59,11 @@ public class SearchActivity extends AppCompatActivity {
                         getString(R.string.API_KEY));
             }
         });
+
+        binding.buttonGoToFavorites.setOnClickListener(v -> {
+            startActivity(new Intent(this, FavoritesActivity.class));
+            finish();
+        });
+
     }
 }
